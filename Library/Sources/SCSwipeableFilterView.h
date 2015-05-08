@@ -35,6 +35,6 @@
 
 - (void)reset;
 - (void)resetOffset;
-- (void)updateCurrentlySelected;
+- (void)updateCurrentSelected;
 
 @end
