@@ -372,4 +372,8 @@
  */
 + (BOOL)isSessionQueue;
 
+- (void)adjustZoomLevelToScale:(CGFloat)scale;
+
+- (CGFloat)getCurrentZoomThreshhold;
+
 @end

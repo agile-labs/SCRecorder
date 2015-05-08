@@ -1590,4 +1590,22 @@
     return dispatch_get_specific(kSCRecorderRecordSessionQueueKey) != nil;
 }
 
+- (void)adjustZoomLevelToScale:(CGFloat)scale {
+    NSError *error;
+    AVCaptureDevice *device = [self videoDevice];
+    if(device) {
+        [device lockForConfiguration:&error];
+        device.videoZoomFactor = scale;
+        [device unlockForConfiguration];
+    }
+}
+
+- (CGFloat)getCurrentZoomThreshhold {
+    AVCaptureDevice *device = [self videoDevice];
+    if(device) {
+        return device.activeFormat.videoZoomFactorUpscaleThreshold;
+    }
+    return 0.0f;
+}
+
 @end
