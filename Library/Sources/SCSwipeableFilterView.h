@@ -33,4 +33,8 @@
  */
 @property (assign, nonatomic) BOOL refreshAutomaticallyWhenScrolling;
 
+- (void)reset;
+- (void)resetOffset;
+- (void)updateCurrentlySelected;
+
 @end

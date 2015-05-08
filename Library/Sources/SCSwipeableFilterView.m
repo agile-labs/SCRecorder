@@ -163,4 +163,27 @@ static CGRect CGRectTranslate(CGRect rect, CGFloat width, CGFloat maxWidth) {
     [self updateScrollViewContentSize];
 }
 
+
+
+- (void)reset {
+    
+    [_selectFilterScrollView setContentOffset:CGPointZero animated:NO];
+    
+    CGFloat width = _selectFilterScrollView.frame.size.width;
+    CGFloat ratio = _selectFilterScrollView.contentOffset.x / width;
+    
+    _filterGroupIndexRatio = ratio;
+    
+    [self updateCurrentSelected];
+    
+    _selectFilterScrollView = nil;
+    self.CIImage = nil;
+    [self commonInit];
+}
+
+- (void)resetOffset {
+    _selectFilterScrollView.contentOffset = CGPointMake(0, 0);
+    [self updateCurrentSelected];
+}
+
 @end
