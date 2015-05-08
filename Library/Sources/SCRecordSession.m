@@ -89,6 +89,7 @@ NSString *SCRecordSessionCacheDirectory = @"CacheDirectory";
     
     if (self) {
         _segments = [[NSMutableArray alloc] init];
+        _segmentsDurations = [[NSMutableArray alloc] init];
         
         _assetWriter = nil;
         _videoInput = nil;
@@ -164,6 +165,7 @@ NSString *SCRecordSessionCacheDirectory = @"CacheDirectory";
     [self dispatchSyncOnSessionQueue:^{
         SCRecordSessionSegment *segment = [_segments objectAtIndex:segmentIndex];
         [_segments removeObjectAtIndex:segmentIndex];
+        [_segmentsDurations removeObjectAtIndex:segmentIndex];
         
         CMTime segmentDuration = segment.duration;
         
@@ -206,6 +208,7 @@ NSString *SCRecordSessionCacheDirectory = @"CacheDirectory";
                 [segment deleteFile];
             }
             [_segments removeObjectAtIndex:0];
+            [_segmentsDurations removeObjectAtIndex:0];
         }
         
         _segmentsDuration = kCMTimeZero;
@@ -398,6 +401,7 @@ NSString *SCRecordSessionCacheDirectory = @"CacheDirectory";
     [self dispatchSyncOnSessionQueue:^{
         [_segments addObject:segment];
         _segmentsDuration = CMTimeAdd(_segmentsDuration, segment.duration);
+        [_segmentsDurations addObject:[NSNumber numberWithFloat:CMTimeGetSeconds(_segmentsDuration)]];
     }];
 }
 
